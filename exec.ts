@@ -15,6 +15,6 @@ export async function find(command: string) {
   }
 }
 
-export async function exec(command: string) {
-  await execFn(command);
+export async function exec(command: string, args: string[]) {
+  await execFn([command, ...args].join(' '));
 }
