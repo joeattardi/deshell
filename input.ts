@@ -1,7 +1,7 @@
 import { bold, yellow } from 'https://deno.land/std/fmt/colors.ts';
 
 import { readKeypress } from "https://deno.land/x/keypress@0.0.4/mod.ts";
-// import { clearLine, goLeft } from "https://denopkg.com/iamnathanj/cursor@v2.0.0/mod.ts";
+import { clearLine, goLeft } from "https://denopkg.com/iamnathanj/cursor@v2.0.0/mod.ts";
 
 const encoder = new TextEncoder();
 
@@ -16,6 +16,13 @@ export async function getInput() {
   for await (const keypress of readKeypress()) {
     if (line === '' && keypress.key === 'd' && keypress.ctrlKey) {
       Deno.exit(0);
+    } else if (keypress.key === 'backspace') {
+      await clearLine();
+      await goLeft(line.length + prompt.length);
+
+      line = line.slice(0, -1);
+      await Deno.stdout.write(encoder.encode(prompt));
+      await Deno.stdout.write(encoder.encode(line));
     } else if (keypress.key === 'return') {
       await Deno.stdout.write(encoder.encode('\n'));
       return line;
