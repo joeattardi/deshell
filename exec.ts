@@ -1,6 +1,10 @@
 import { environment } from './state.ts';
 
 export async function find(command: string) {
+  if (command.startsWith('/') && command.startsWith('.')) {
+    return command;
+  }
+
   const path = environment.PATH.split(':');
   for (const pathEntry of path) {
     try {
@@ -11,6 +15,8 @@ export async function find(command: string) {
       // file not found
     }
   }
+
+  return null;
 }
 
 export async function exec(command: string, args: string[], env: {[key: string]: string}) {
