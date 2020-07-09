@@ -1,6 +1,3 @@
-import { exec as execFn } from 'https://deno.land/x/exec/mod.ts';
-
-
 import { path } from './state.ts';
 
 export async function find(command: string) {
@@ -16,5 +13,9 @@ export async function find(command: string) {
 }
 
 export async function exec(command: string, args: string[]) {
-  await execFn([command, ...args].join(' '));
+  const process = Deno.run({
+    cmd: [command, ...args]
+  });
+
+  return await process.status();
 }
