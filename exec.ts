@@ -13,10 +13,13 @@ export async function find(command: string) {
   }
 }
 
-export async function exec(command: string, args: string[]) {
+export async function exec(command: string, args: string[], env: {[key: string]: string}) {
   const process = Deno.run({
     cmd: [command, ...args],
-    env: Deno.env.toObject()
+    env: {
+      ...Deno.env.toObject(),
+      ...env
+    }
   });
 
   return await process.status();

@@ -33,11 +33,5 @@ export async function getInput() {
       line += keypress.key;
       await Deno.stdout.write(encoder.encode(keypress.key));
     }
-
-    // } else if (keypress.key === 'left') {
-    //   await clearLine();
-    //   await goLeft(line.length + prompt.length);
-    //   await Deno.stdout.write(encoder.encode(prompt));
-    // }
   }
 }

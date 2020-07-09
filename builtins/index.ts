@@ -1,6 +1,7 @@
 import chdir from './chdir.ts';
 import echo from './echo.ts';
 import env from './env.ts';
+import logout from './logout.ts';
 import pwd from './pwd.ts';
 
 type Builtins = { [key: string]: (args: string[]) => void };
@@ -10,6 +11,8 @@ const builtins: Builtins = {
   chdir,
   echo,
   env,
+  exit: logout,
+  logout,
   pwd
 };
 
