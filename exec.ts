@@ -14,7 +14,8 @@ export async function find(command: string) {
 
 export async function exec(command: string, args: string[]) {
   const process = Deno.run({
-    cmd: [command, ...args]
+    cmd: [command, ...args],
+    env: Deno.env.toObject()
   });
 
   return await process.status();

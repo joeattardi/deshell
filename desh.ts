@@ -1,23 +1,12 @@
-import { readLines } from 'https://deno.land/std/io/mod.ts';
-import { bold, yellow } from 'https://deno.land/std/fmt/colors.ts';
+import { bold } from 'https://deno.land/std/fmt/colors.ts';
 
 import { exec, find } from './exec.ts';
+import { getInput } from './input.ts';
 import { parseCommand } from './parse.ts';
-
 import builtins from './builtins/index.ts';
 
-async function prompt() {
-  const cwd = Deno.cwd();
-  const leaf = cwd.split('/').slice(-1)[0];
-
-  await Deno.stdout.write(new TextEncoder().encode(`🦕 ${bold(yellow(leaf || '/'))} $ `));
-  for await (const line of readLines(Deno.stdin)) {
-    return line;
-  }
-}
-
 while (true) {
-  const command = await prompt();
+  const command = await getInput();
   if (command) {
     const parsedCommand = parseCommand(command);
     if (parsedCommand.command in builtins) {
