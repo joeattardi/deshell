@@ -16,7 +16,7 @@ while (true) {
       if (foundCommand) {
         await exec(foundCommand, parsedCommand.args);
       } else {
-        console.log(`command not found: ${bold(command)}`);
+        console.log(`command not found: ${bold(parsedCommand.command)}`);
       }
     }
   }

@@ -1,6 +1,7 @@
-import { path } from './state.ts';
+import { environment } from './state.ts';
 
 export async function find(command: string) {
+  const path = environment.PATH.split(':');
   for (const pathEntry of path) {
     try {
       await Deno.stat(`${pathEntry}/${command}`);
